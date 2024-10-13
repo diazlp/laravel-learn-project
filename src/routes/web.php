@@ -23,20 +23,22 @@ Route::get('/data-table', [HomeController::class, 'dataTable']);
 Route::get('/register', [AuthController::class, 'register']);
 Route::get('/welcome', [AuthController::class, 'welcome']);
 
-// Route::get('/master', function() {
-//   return view('layout.master');
-// });
-
-Route::get('/category', [CategoryController::class, 'index']);
-
-Route::get('/category/create', [CategoryController::class, 'create']);
-Route::post('/category', [CategoryController::class, 'store']);
-
-Route::get('/category/{id}', [CategoryController::class, 'show']);
-
-Route::get('/category/{id}/edit', [CategoryController::class, 'edit']);
-Route::put('/category/{id}', [CategoryController::class, 'update']);
-
-Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
+Route::middleware(['auth'])->group(function () {
+  Route::get('/category', [CategoryController::class, 'index']);
+  
+  Route::get('/category/create', [CategoryController::class, 'create']);
+  Route::post('/category', [CategoryController::class, 'store']);
+  
+  Route::get('/category/{id}', [CategoryController::class, 'show']);
+  
+  Route::get('/category/{id}/edit', [CategoryController::class, 'edit']);
+  Route::put('/category/{id}', [CategoryController::class, 'update']);
+  
+  Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
+});
 
 Route::resource('/book', BookController::class);
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

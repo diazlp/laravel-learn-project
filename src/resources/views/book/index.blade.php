@@ -5,7 +5,10 @@
 @endsection
 
 @section('content')
-<a href="/book/create" class="btn btn-primary btn-sm">Add Book</a>
+
+@auth
+  <a href="/book/create" class="btn btn-primary btn-sm">Add Book</a>
+@endauth
 
 <table class="table">
   <thead>
@@ -29,8 +32,10 @@
             @csrf
             @method('DELETE')
             <a href="/book/{{$value->id}}" class="btn btn-info btn-sm">View Detail</a>
+            @auth
             <a href="/book/{{$value->id}}/edit" class="btn btn-warning btn-sm">Update</a>
             <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
+            @endauth
           </form>
         </td>
       </tr>
