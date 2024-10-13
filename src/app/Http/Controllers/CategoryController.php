@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -36,14 +37,14 @@ class CategoryController extends Controller
 
     public function show($id) 
     {   
-        $category = DB::table('categories')->where('id', '=', $id)->first();
+        $category = Category::find($id);
 
         return view('category.detail', ['category' => $category]);
     }
 
     public function edit($id)
     {
-        $category = DB::table('categories')->where('id', '=', $id)->first();
+        $category = Category::find($id);
 
         return view('category.edit', ['category' => $category]);
     }
