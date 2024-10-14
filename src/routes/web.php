@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
   Route::put('/category/{id}', [CategoryController::class, 'update']);
   
   Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
+
+  Route::post('/book/{id}/borrow', [BookController::class, 'borrow']);
 });
 
 Route::resource('/book', BookController::class);

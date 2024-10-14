@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Book;
+use App\Models\Borrower;
 
 class BookController extends Controller
 {
@@ -76,8 +78,8 @@ public function store(Request $request)
      */
     public function show($id)
     {
-        $book = Book::with('category')->find($id);
-
+        $book = Book::find($id);
+        
         return view('book.detail', ['book' => $book]);
     }
 
@@ -138,5 +140,27 @@ public function store(Request $request)
 
         return redirect()->route('book.index')->with('success', 'Book deleted successfully!');
         
+    }
+
+    public function borrow($id)
+    {
+        $book = Book::find($id);
+
+        // Check if the book is available
+        if ($book->stock <= 0) {
+            return redirect()->back()->withErrors(['msg' => 'This book is currently not available.']);
+        }
+
+        // Create a new Borrower record
+        Borrower::create([
+            'tanggal_peminjaman' => now(),
+            'tanggal_kembali' => now()->addDays(365),
+            'book_id' => $book->id,
+            'user_id' => Auth::id(),
+        ]);
+
+        $book->decrement('stock');
+
+        return redirect()->route('book.show', $book->id)->with('success', 'Book borrowed successfully! It is due back in 365 days.');
     }
 }
