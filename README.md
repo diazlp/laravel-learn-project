@@ -2,7 +2,10 @@
 
 ## Description
 
-This is a Library Management System built with Laravel 10. The application provides essential functionalities for managing categories and books, including user authentication and borrowing features.
+This is a basic Library Management System built with Laravel 10. The application includes essential functionalities for managing categories and books, user authentication, and borrowing features. It allows users to add or remove books and track borrowed books.
+
+The purpose of this project is to gain hands-on experience with Laravel, focusing on concepts such as routing, Eloquent ORM, and authentication. Future enhancements may include advanced search capabilities, due date reminders, and user reviews.
+
 
 ## Features
 
